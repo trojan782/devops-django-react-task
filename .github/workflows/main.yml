@@ -28,7 +28,7 @@ jobs:
       - name: Build and push frontend
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: frontend
           file: frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/hng9_fe:latest
