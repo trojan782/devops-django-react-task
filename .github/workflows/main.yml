@@ -21,14 +21,14 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Switch directory to the frontend folder
-        run: |
-          pwd
-          cd frontend
+      # - name: Switch directory to the frontend folder
+      #   run: |
+      #     pwd
+      #     cd frontend
       - name: Build and push frontend
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
+          file: frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/hng9_fe:latest
