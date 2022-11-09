@@ -1,0 +1,44 @@
+Description: >
+  Instance Deployment stack
+
+Parameters:
+  ID:
+    Description: Nginx Server
+    Type: String
+    Default: django_deployment
+
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub ${ID}
+      GroupDescription: Allow Port 22 and Port 80
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  Server:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: nginx
+      ImageId: ami-052efd3df9dad4825
+      InstanceType: t2.micro
+      SecurityGroups:
+        - !Ref InstanceSecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Sub ${ID}
+
+Outputs:
+  PublicIp:
+    Description: Server Public IP
+    Value: !GetAtt Server.PublicIp
+    Export:
+      Name: !Sub "${AWS::StackName}-PublicIp"
+    
