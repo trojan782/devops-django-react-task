@@ -1,5 +1,5 @@
 Description: >
-  Django Deployment stack
+  Instance Deployment stack
 
 Parameters:
   ID:
@@ -41,4 +41,4 @@ Outputs:
     Value: !GetAtt Server.PublicIp
     Export:
       Name: !Sub "${AWS::StackName}-PublicIp"
-      
+    
